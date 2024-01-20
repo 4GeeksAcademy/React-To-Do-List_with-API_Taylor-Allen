@@ -1,12 +1,25 @@
+/* .container {
+    width: 450px;
+} */
 
-/* 
+.todos {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.form-control {
+    margin-right: 8px;
+}
 
-*/
+li:not(:hover) > button {
+    visibility: hidden;
+}
+
+
+input{
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    border: none; 
+}
