@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Trash } from 'react-bootstrap-icons'
+import { Trash, X } from 'react-bootstrap-icons'
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import "/workspaces/React-To-Do-List_Taylor-Allen/src/styles/index.css"
+
     
 function ToDoList() {
     const [todos, setTodos] = useState([]);
     const [inputValue, setInputValue] = useState('');
+    const numberComplete = todos.filter(t => t.done).length;
+    const numberTotal = todos.length;
 
     function handleChange(e) {
         setInputValue(e.target.value);
@@ -30,9 +33,11 @@ function ToDoList() {
     return (
         <div className="container text-center w-25">
             <h1>Taylor's To-Dos</h1>
+            <label for="validationCustomUsername" class="form-label"></label>
+            <div className="paper">
             <form onSubmit={handleSubmit}>
                 <div className="input-group"> 
-                    <input type="text" value={inputValue} onChange={handleChange} className="form-control border border-1 rounded-pill" />
+                    <input type="text" placeholder="What's on your mind?" value={inputValue} onChange={handleChange} className="form-control border border-1 rounded-pill" required />
                     <div className="input-group-append">
                         <button type="submit" className="btn"><PlusCircleFill size={20}/></button>
                     </div>
@@ -46,12 +51,18 @@ function ToDoList() {
                         <li key={index} className="d-flex justify-content-between align-items-center">
                             {todo}
                             <button onClick={() => handleDelete(index)} class="btn">
-                                <Trash size={20} />
+                                <X size={20} />
                             </button>
                         </li>
                     ))}
                 </ul>
+                
             )}
+            <div className="task-counter text-end">
+                <p>{numberTotal} Task(s) Left</p>
+            </div>
+            </div>
+            
         </div>
     )
 }

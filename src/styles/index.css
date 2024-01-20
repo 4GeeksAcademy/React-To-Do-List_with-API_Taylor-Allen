@@ -1,16 +1,75 @@
-/* .container {
-    width: 450px;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+
+body {
+    background-image: url(https://images.unsplash.com/photo-1523340954243-d2b6af5d9908?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: 700;
+    background-image: linear-gradient(to left, #6e3e08, #e0c478);
+    color: transparent;
+    background-clip: text;
+    -webkit-text-stroke: 2px;
+    
+    
+}
+
+.container {
+    margin-top: 25px;
+    font-family:'Nunito';
+}
+
+.paper {
+    background-color: #fff;
+    position: relative;
+    padding: 30px;
+    border: solid;
+    border-color: lightgrey;
+    border-width: thin;
+  }
+  
+  .paper,
+  .paper::before,
+  .paper::after {
+    box-shadow: 2px 1px 1px rgba(0,0,0,0.15);
+  }
+  
+  .paper::before,
+  .paper::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+  }
+  
+  /* Second sheet of paper */
+  .paper::before {
+    left: 7px;
+    top: 5px;
+    z-index: -1;
+  }
+  
+  /* Third sheet of paper */
+  .paper::after {
+    left: 12px;
+    top: 10px;
+    z-index: -2;
+  }
 
 .todos {
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
+    border: solid;
+    border-color: yellow;
 }
 
-.form-control {
-    margin-right: 8px;
-}
+
 
 li:not(:hover) > button {
     visibility: hidden;
@@ -22,4 +81,8 @@ input{
     height: 100%;
     padding: 5px;
     border: none; 
+}
+
+.btn {
+    color: #6e3e08;
 }
