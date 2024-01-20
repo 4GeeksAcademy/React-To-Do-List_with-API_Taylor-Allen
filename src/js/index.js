@@ -6,7 +6,10 @@ import ReactDOM from "react-dom";
 import "../styles/index.css";
 
 //import your own components
-import Home from "./component/home.jsx";
+import ToDoList from "./component/ToDoList.jsx";
+
+//link for my icons
+<script src="https://kit.fontawesome.com/4aa61b2126.js" crossorigin="anonymous"></script>
 
 //render your react application
-ReactDOM.render(<Home />, document.querySelector("#app"));
+ReactDOM.render(<ToDoList />, document.querySelector("#app"));
