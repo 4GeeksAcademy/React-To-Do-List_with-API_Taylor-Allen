@@ -31,12 +31,12 @@ function ToDoList() {
     }
 
     return (
-        <div className="container text-center w-25">
-            <h1>Taylor's To-Dos</h1>
+        <div className="container w-25">
+            <h1 className="text-center">Taylor's To-Dos</h1>
             <label for="validationCustomUsername" class="form-label"></label>
-            <div className="paper">
+            <div className="card">
             <form onSubmit={handleSubmit}>
-                <div className="input-group"> 
+                <div className="input-group m-0 p-0"> 
                     <input type="text" placeholder="What's on your mind?" value={inputValue} onChange={handleChange} className="form-control border border-1 rounded-pill" required />
                     <div className="input-group-append">
                         <button type="submit" className="btn"><PlusCircleFill size={20}/></button>
@@ -55,12 +55,14 @@ function ToDoList() {
                             </button>
                         </li>
                     ))}
+                    
+                
                 </ul>
                 
             )}
-            <div className="task-counter text-end">
-                <p>{numberTotal} Task(s) Left</p>
-            </div>
+            <div className="footer text-muted">
+                    <p2>{numberTotal} Task(s) Left</p2>
+                </div>
             </div>
             
         </div>
