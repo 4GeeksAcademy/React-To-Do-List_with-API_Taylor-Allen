@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { Trash, X } from 'react-bootstrap-icons'
+import React, { useEffect, useState } from "react";
+import { X } from 'react-bootstrap-icons'
 import { PlusCircleFill } from 'react-bootstrap-icons'
-import "/workspaces/React-To-Do-List_Taylor-Allen/src/styles/index.css"
-
     
 function ToDoList() {
     const [todos, setTodos] = useState([]);
@@ -10,8 +8,29 @@ function ToDoList() {
     const numberComplete = todos.filter(t => t.done).length;
     const numberTotal = todos.length;
 
+    useEffect(() => {
+        fetch('https://playground.4geeks.com/apis/fake/todos/user/taylor-allen') 
+    .then(resp => {
+        console.log(resp.ok); // Will be true if the response is successful
+        console.log(resp.status); // The status code=200 or code=400 etc.
+        console.log(resp.text()); // Will try to return the exact result as a string
+        return resp.json(); // (returns promise) Will try to parse the result as JSON and return a promise that you can .then for results
+    })
+    .then(data => {
+        // Here is where your code should start after the fetch finishes
+        console.log(data); // This will print on the console the exact object received from the server
+    })
+    .catch(error => {
+        // Error handling
+        console.log(error);
+    });
+
+    }, [])
+
     function handleChange(e) {
         setInputValue(e.target.value);
+
+        
     }
 
     function handleSubmit(e) {
@@ -22,6 +41,18 @@ function ToDoList() {
             setTodos([...todos, inputValue]);
             setInputValue('');
         }
+        fetch('https://playground.4geeks.com/apis/fake/todos/user/taylor-allen', {
+        method: 'PUT',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify([{ label: "Make the bed", done: false },
+        { label: "Walk the dog", done: false },
+        { label: "Do the replits", done: false }]),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
     }
 
     function handleDelete(index) {
