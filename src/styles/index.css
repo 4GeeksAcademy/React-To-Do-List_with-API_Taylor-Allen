@@ -39,6 +39,7 @@ h1 {
   ul {
     margin: 20px;
     font-family: 'Indie Flower', cursive;
+    padding-left: 10px;
   }
 
   .card,
@@ -91,4 +92,9 @@ p {
   display: flex;
   justify-content: center;
   margin: 20px;
+}
+
+#p2 {
+  font-size: 15px;
+  margin: 0;
 }

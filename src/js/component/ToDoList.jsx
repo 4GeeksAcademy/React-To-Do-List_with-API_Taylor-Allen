@@ -7,24 +7,16 @@ function ToDoList() {
     const [inputValue, setInputValue] = useState('');
     const numberComplete = todos.filter(t => t.done).length;
     const numberTotal = todos.length;
+    const apiURL = 'https://playground.4geeks.com/apis/fake/todos/user/taylor-allen';
+
+    const updateTasks = () => {
+        fetch(apiURL)
+        .then((resp) => resp.json())
+        .then((newTodos) => setTodos(newTodos))
+    }
 
     useEffect(() => {
-        fetch('https://playground.4geeks.com/apis/fake/todos/user/taylor-allen') 
-    .then(resp => {
-        console.log(resp.ok); // Will be true if the response is successful
-        console.log(resp.status); // The status code=200 or code=400 etc.
-        console.log(resp.text()); // Will try to return the exact result as a string
-        return resp.json(); // (returns promise) Will try to parse the result as JSON and return a promise that you can .then for results
-    })
-    .then(data => {
-        // Here is where your code should start after the fetch finishes
-        console.log(data); // This will print on the console the exact object received from the server
-    })
-    .catch(error => {
-        // Error handling
-        console.log(error);
-    });
-
+        updateTasks();
     }, [])
 
     function handleChange(e) {
@@ -41,18 +33,18 @@ function ToDoList() {
             setTodos([...todos, inputValue]);
             setInputValue('');
         }
-        fetch('https://playground.4geeks.com/apis/fake/todos/user/taylor-allen', {
+
+        const newTask = [...todos, { label: inputValue, done: false }]
+
+        fetch(apiURL, {
         method: 'PUT',
+        body: JSON.stringify(todos),
         headers: {
         'Content-Type': 'application/json',
         },
-        body: JSON.stringify([{ label: "Make the bed", done: false },
-        { label: "Walk the dog", done: false },
-        { label: "Do the replits", done: false }]),
         })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
+        .then((response) => {response.status === 200 ? setTodos(newTask) : ''})
+        .then(data => console.log(data));
     }
 
     function handleDelete(index) {
@@ -64,7 +56,7 @@ function ToDoList() {
     return (
         <div className="container w-25">
             <h1 className="text-center">Taylor's To-Dos</h1>
-            <label for="validationCustomUsername" class="form-label"></label>
+            <label htmlFor="validationCustomUsername" className="form-label"></label>
             <div className="card">
             <form onSubmit={handleSubmit}>
                 <div className="input-group m-0 p-0"> 
@@ -80,8 +72,8 @@ function ToDoList() {
                 <ul>
                     {todos.map((todo, index) => (
                         <li key={index} className="d-flex justify-content-between align-items-center">
-                            {todo}
-                            <button onClick={() => handleDelete(index)} class="btn">
+                            {todo.label}
+                            <button onClick={() => handleDelete(index)} className="btn">
                                 <X size={20} />
                             </button>
                         </li>
@@ -91,8 +83,8 @@ function ToDoList() {
                 </ul>
                 
             )}
-            <div className="footer text-muted">
-                    <p2>{numberTotal} Task(s) Left</p2>
+            <div>
+                    <p id="p2" className="d-flex justify-content-start" >{numberTotal} Task(s) Left</p>
                 </div>
             </div>
             
