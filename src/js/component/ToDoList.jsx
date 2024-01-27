@@ -10,9 +10,26 @@ function ToDoList() {
     "https://playground.4geeks.com/apis/fake/todos/user/taylor-allen";
 
   const updateTasks = () => {
-    fetch(apiURL)
-      .then((resp) => resp.json())
-      .then((newTodos) => setTodos(newTodos));
+    fetch(apiURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => {
+        console.log(resp.ok); // Will be true if the response is successful
+        console.log(resp.status); // The status code=200 or code=400 etc.
+        console.log(resp.text()); // Will try to return the exact result as a string
+        return resp.json(); // (returns promise) Will try to parse the result as JSON and return a promise that you can .then for results
+      })
+      .then((setTodos) => {
+        // Here is where your code should start after the fetch finishes
+        console.log(setTodos); // This will print on the console the exact object received from the server
+      })
+      .catch((error) => {
+        // Error handling
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -44,28 +61,30 @@ function ToDoList() {
       .then((response) => {
         response.status === 200 ? setTodos(newTask) : "";
       })
-      .then((data) => console.log(data));
+      .then((todos) => console.log(todos));
   }
 
   function handleDelete(index) {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
   }
 
-  function handleClearAll() {
-    fetch(apiURL, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.status === 204) {
-          setTodos([]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+  // function handleClearAll() {
+  //   // fetch(apiURL, {
+  //   //   method: "DELETE",
+  //   //   body: JSON.stringify(todos),
+  //   // })
+  //   //   .then((response) => {
+  //   //     if (response.status === 204) {
+  //   //       setTodos([]);
+  //   //     }
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     console.error("Error:", error);
+  //   //   });
+  // }
 
   return (
     <div className="container w-25">
@@ -89,9 +108,9 @@ function ToDoList() {
             </div>
           </div>
         </form>
-        <button onClick={handleClearAll} className="btn btn-danger mt-3">
-          Clear All
-        </button>
+
+        {/* <button onClick={handleClearAll} className="btn btn-danger mt-3">Clear All</button> */}
+
         {todos.length === 0 ? (
           <p>No tasks yet.</p>
         ) : (
