@@ -16,19 +16,12 @@ function ToDoList() {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => {
-        console.log(resp.ok); // Will be true if the response is successful
-        console.log(resp.status); // The status code=200 or code=400 etc.
-        console.log(resp.text()); // Will try to return the exact result as a string
-        return resp.json(); // (returns promise) Will try to parse the result as JSON and return a promise that you can .then for results
-      })
-      .then((setTodos) => {
-        // Here is where your code should start after the fetch finishes
-        console.log(setTodos); // This will print on the console the exact object received from the server
+      .then((resp) => resp.json())
+      .then((data) => {
+        setTodos(data);
       })
       .catch((error) => {
-        // Error handling
-        console.log(error);
+        console.log("Error fetching data:", error);
       });
   };
 
@@ -45,46 +38,55 @@ function ToDoList() {
 
     // Check if inputValue is not empty before adding it to todos
     if (inputValue.trim() !== "") {
-      setTodos([...todos, inputValue]);
+      const newTask = { label: inputValue, done: false };
+
+      // Optimistically update the state
+      setTodos([...todos, newTask]);
       setInputValue("");
-    }
 
-    const newTask = [...todos, { label: inputValue, done: false }];
-
-    fetch(apiURL, {
-      method: "PUT",
-      body: JSON.stringify(newTask),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        response.status === 200 ? setTodos(newTask) : "";
+      fetch(apiURL, {
+        method: "PUT",
+        body: JSON.stringify([...todos, newTask]),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((todos) => console.log(todos));
+        .then((response) => {
+          if (response.status !== 200) {
+            // Handle API request error here if needed
+            console.error("Failed to update the task on the server.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   }
 
   function handleDelete(index) {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
-    setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
-  }
 
-  // function handleClearAll() {
-  //   // fetch(apiURL, {
-  //   //   method: "DELETE",
-  //   //   body: JSON.stringify(todos),
-  //   // })
-  //   //   .then((response) => {
-  //   //     if (response.status === 204) {
-  //   //       setTodos([]);
-  //   //     }
-  //   //   })
-  //   //   .catch((error) => {
-  //   //     console.error("Error:", error);
-  //   //   });
-  // }
+    // Optimistically update the state
+    setTodos(newTodos);
+
+    fetch(apiURL, {
+      method: "PUT",
+      body: JSON.stringify(newTodos),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          // Handle API request error here if needed
+          console.error("Failed to update the task on the server.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 
   return (
     <div className="container w-25">
