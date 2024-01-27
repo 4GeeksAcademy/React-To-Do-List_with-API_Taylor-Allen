@@ -17,8 +17,8 @@ function ToDoList() {
       },
     })
       .then((resp) => resp.json())
-      .then((data) => {
-        setTodos(data);
+      .then((todos) => {
+        setTodos(todos);
       })
       .catch((error) => {
         console.log("Error fetching data:", error);
