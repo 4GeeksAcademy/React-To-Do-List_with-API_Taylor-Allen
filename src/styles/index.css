@@ -1,86 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Shadows+Into+Light&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Shadows+Into+Light&display=swap");
 
 body {
-    background-image: url(https://images.unsplash.com/photo-1523340954243-d2b6af5d9908?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-    background-repeat: no-repeat;
-    background-size: cover;
-
+  background-image: url(https://images.unsplash.com/photo-1523340954243-d2b6af5d9908?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1 {
-    font-size: 50px;
-    font-weight: 700;
-    background-image: linear-gradient(to left, #6e3e08, #e0c478);
-    color: transparent;
-    background-clip: text;
-    -webkit-text-stroke: 2px;
+  font-size: 50px;
+  font-weight: 700;
+  background-image: linear-gradient(to left, #6e3e08, #e0c478);
+  color: transparent;
+  background-clip: text;
+  -webkit-text-stroke: 2px;
 }
 
 .container {
-    margin-top: 25px;
-    font-family:'Nunito';
+  margin-top: 25px;
+  font-family: "Nunito";
 }
 
-
 .card {
-    position: relative;
-    padding: 20px;
-    border: solid;
-    border-color: lightgrey;
-    border-width: thin;
-    background-color: #fff;
-    background-image: linear-gradient(#eee .1em, transparent .1em);
-    background-size: 100% 1.7em;
-    font-size: 22px;
-    border-radius: 1px;
-  }
-  
-  ul {
-    margin: 20px;
-    font-family: 'Indie Flower', cursive;
-    padding-left: 10px;
-  }
+  position: relative;
+  padding: 20px;
+  border: solid;
+  border-color: lightgrey;
+  border-width: thin;
+  background-color: #fff;
+  background-image: linear-gradient(#eee 0.1em, transparent 0.1em);
+  background-size: 100% 1.7em;
+  font-size: 22px;
+  border-radius: 1px;
+}
 
-  .card,
-  .card::before,
-  .card::after {
-    box-shadow: 2px 1px 1px rgba(0,0,0,0.15);
-  }
-  
-  .card::before,
-  .card::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #eee;
-  }
-  
-  /* Second sheet of card */
-  .card::before {
-    left: 7px;
-    top: 5px;
-    z-index: -1;
-    
-  }
-  
-  /* Third sheet of card */
-  .card::after {
-    left: 12px;
-    top: 10px;
-    z-index: -2;
-    
-  }
+ul {
+  margin: 20px;
+  font-family: "Indie Flower", cursive;
+  padding-left: 10px;
+}
 
+.card,
+.card::before,
+.card::after {
+  box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+}
+
+/* Second sheet of card */
+.card::before {
+  left: 7px;
+  top: 5px;
+  z-index: -1;
+}
+
+/* Third sheet of card */
+.card::after {
+  left: 12px;
+  top: 10px;
+  z-index: -2;
+}
 
 li:not(:hover) > button {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .btn {
-    color: #6e3e08;
-    border: none;
+  color: #6e3e08;
+  border: none;
 }
 
 .footer {
@@ -97,4 +92,5 @@ p {
 #p2 {
   font-size: 15px;
   margin: 0;
+  padding: 0;
 }

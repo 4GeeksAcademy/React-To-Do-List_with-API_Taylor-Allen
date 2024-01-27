@@ -83,23 +83,24 @@ function ToDoList() {
       .catch((error) => {
         console.error("Error:", error);
       });
+  }
 
-      function handleClearAll() {
-        fetch(apiURL, {
-          method: "PUT",
-        })
-          .then((response) => {
-            if (response.status === 204) {
-              // If successful, reset the todos state to an empty array
-              setTodos([]);
-            } else {
-              console.error("Failed to clear all tasks on the server.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      }
+  function handleClearAll() {
+    fetch(apiURL, {
+      method: "PUT",
+      body: JSON.stringify(useState),
+    })
+      .then((response) => {
+        if (response.status === 204) {
+          // If successful, reset the todos state to an empty array
+          setTodos([]);
+        } else {
+          console.error("Failed to clear all tasks on the server.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   return (
@@ -125,10 +126,6 @@ function ToDoList() {
           </div>
         </form>
 
-        <button onClick={handleClearAll} className="btn btn-secondary">
-          Clear All
-        </button>
-
         {todos.length === 0 ? (
           <p>No tasks yet.</p>
         ) : (
@@ -146,10 +143,16 @@ function ToDoList() {
             ))}
           </ul>
         )}
-        <div>
+        <div className="d-flex justify-content-between">
           <p id="p2" className="d-flex justify-content-start">
             {numberTotal} Task(s) Left
           </p>
+          <button
+            onClick={handleClearAll}
+            className="btn d-flex justify-content-end p-0 m-0"
+          >
+            Clear All
+          </button>
         </div>
       </div>
     </div>
