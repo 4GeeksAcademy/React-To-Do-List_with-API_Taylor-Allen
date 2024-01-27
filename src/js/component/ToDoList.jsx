@@ -53,7 +53,6 @@ function ToDoList() {
       })
         .then((response) => {
           if (response.status !== 200) {
-            // Handle API request error here if needed
             console.error("Failed to update the task on the server.");
           }
         })
@@ -67,7 +66,6 @@ function ToDoList() {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
 
-    // Optimistically update the state
     setTodos(newTodos);
 
     fetch(apiURL, {
@@ -79,13 +77,29 @@ function ToDoList() {
     })
       .then((response) => {
         if (response.status !== 200) {
-          // Handle API request error here if needed
           console.error("Failed to update the task on the server.");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+
+      function handleClearAll() {
+        fetch(apiURL, {
+          method: "PUT",
+        })
+          .then((response) => {
+            if (response.status === 204) {
+              // If successful, reset the todos state to an empty array
+              setTodos([]);
+            } else {
+              console.error("Failed to clear all tasks on the server.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
   }
 
   return (
@@ -111,7 +125,9 @@ function ToDoList() {
           </div>
         </form>
 
-        {/* <button onClick={handleClearAll} className="btn btn-danger mt-3">Clear All</button> */}
+        <button onClick={handleClearAll} className="btn btn-secondary">
+          Clear All
+        </button>
 
         {todos.length === 0 ? (
           <p>No tasks yet.</p>
