@@ -86,14 +86,19 @@ function ToDoList() {
   }
 
   function handleClearAll() {
+    const deleteAll = [{ label: "add a new task", done: false }];
+
     fetch(apiURL, {
       method: "PUT",
-      body: JSON.stringify(useState),
+      body: JSON.stringify(deleteAll),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => {
-        if (response.status === 204) {
+        if (response.status === 200) {
           // If successful, reset the todos state to an empty array
-          setTodos([]);
+          setTodos(deleteAll);
         } else {
           console.error("Failed to clear all tasks on the server.");
         }
