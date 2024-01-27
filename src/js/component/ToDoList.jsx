@@ -40,7 +40,6 @@ function ToDoList() {
     if (inputValue.trim() !== "") {
       const newTask = { label: inputValue, done: false };
 
-      // Optimistically update the state
       setTodos([...todos, newTask]);
       setInputValue("");
 
@@ -86,7 +85,7 @@ function ToDoList() {
   }
 
   function handleClearAll() {
-    const deleteAll = [{ label: "add a new task", done: false }];
+    const deleteAll = [{ label: "required proxy task", done: false }];
 
     fetch(apiURL, {
       method: "PUT",
@@ -97,7 +96,6 @@ function ToDoList() {
     })
       .then((response) => {
         if (response.status === 200) {
-          // If successful, reset the todos state to an empty array
           setTodos(deleteAll);
         } else {
           console.error("Failed to clear all tasks on the server.");
